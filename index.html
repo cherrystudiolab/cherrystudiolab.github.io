@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cherry Studio Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#ffffff;
+  --warm-white:#faf7f2;
+  --pink:#f2a7b0;
+  --pink-soft:#fde8eb;
+  --orange:#e8834a;
+  --orange-soft:#fdeee4;
+  --blue:#7ab5d4;
+  --blue-soft:#e4f1f8;
+  --green:#7ab87a;
+  --green-soft:#e4f2e4;
+  --cherry:#c0392b;
+  --dark:#2a2a2a;
+  --mid:#666;
+  --light:#999;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.07);padding:0 5vw}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--dark);text-decoration:none}
+.nav-logo span{color:var(--cherry)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.84rem;color:var(--mid);text-decoration:none;transition:color 0.2s}
+.nav-links a:hover{color:var(--cherry)}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.nav-contact{font-size:0.78rem;background:var(--cherry);color:#fff;padding:7px 16px;border-radius:20px;text-decoration:none}
+
+/* LANG SWITCHER */
+.lang-switcher{position:relative}
+.lang-btn{font-size:0.78rem;color:var(--mid);background:none;border:1.5px solid rgba(0,0,0,0.12);border-radius:20px;padding:6px 12px;cursor:pointer;display:flex;align-items:center;gap:5px;font-family:'DM Sans',sans-serif}
+.lang-btn:hover{border-color:var(--cherry);color:var(--cherry)}
+.lang-dropdown{display:none;position:absolute;top:calc(100% + 8px);right:0;background:white;border:1px solid rgba(0,0,0,0.1);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.1);overflow:hidden;min-width:130px;z-index:200}
+.lang-dropdown.open{display:block}
+.lang-option{display:block;padding:9px 16px;font-size:0.82rem;color:var(--dark);cursor:pointer;transition:background 0.15s;border:none;background:none;width:100%;text-align:left;font-family:'DM Sans',sans-serif}
+.lang-option:hover{background:var(--warm-white);color:var(--cherry)}
+.lang-option.active{color:var(--cherry);font-weight:500}
+
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:2px;background:var(--dark);border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid rgba(0,0,0,0.07);padding:1.5rem 5vw;z-index:99;flex-direction:column;gap:1.2rem}
+.mobile-menu a{color:var(--dark);text-decoration:none;font-size:1rem}
+.mobile-menu.open{display:flex}
+
+/* HERO */
+.hero{padding-top:56px;min-height:100svh;display:flex;align-items:center;background:#fff}
+.hero-inner{max-width:1100px;margin:0 auto;padding:4rem 5vw;display:grid;grid-template-columns:1fr 300px;gap:5rem;align-items:center;width:100%}
+.hero-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cherry);margin-bottom:1rem;font-weight:500}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.2vw,3rem);line-height:1.2;margin-bottom:1.4rem}
+.hero-title em{color:var(--cherry);font-style:italic}
+.hero-desc{font-size:0.93rem;color:var(--mid);line-height:1.8;margin-bottom:2.2rem;max-width:420px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--cherry);color:#fff;padding:11px 24px;border-radius:30px;text-decoration:none;font-size:0.86rem;font-weight:500}
+.btn-secondary{background:transparent;color:var(--dark);padding:11px 24px;border-radius:30px;text-decoration:none;font-size:0.86rem;border:1.5px solid rgba(0,0,0,0.2)}
+
+/* HERO PHOTO */
+.hero-photo{position:relative;width:300px;flex-shrink:0}
+.hero-photo-main{width:100%;aspect-ratio:3/4;border-radius:18px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.hero-photo-main img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-photo-badge{position:absolute;bottom:-1rem;left:-1.2rem;background:white;border-radius:12px;padding:9px 13px;display:flex;align-items:center;gap:9px;box-shadow:0 4px 16px rgba(0,0,0,0.1)}
+.hero-photo-badge .avatar{width:32px;height:32px;border-radius:50%;object-fit:cover;object-position:top;flex-shrink:0}
+.hero-photo-badge .info{font-size:0.72rem}
+.hero-photo-badge .info strong{display:block;color:var(--dark)}
+.hero-photo-badge .info span{color:var(--light)}
+
+/* SECTION */
+section{padding:5rem 5vw}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--cherry);margin-bottom:0.7rem;font-weight:500}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.7rem,2.6vw,2.3rem);line-height:1.25;margin-bottom:1rem}
+.section-desc{font-size:0.92rem;color:var(--mid);line-height:1.8;max-width:500px;margin-bottom:2.8rem}
+
+/* ABOUT */
+.about{background:var(--warm-white)}
+.about-grid{display:grid;grid-template-columns:280px 1fr;gap:4rem;align-items:center}
+.about-photo{width:280px;aspect-ratio:3/4;border-radius:18px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,0.09)}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
+.about-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:1.6rem}
+.tag{padding:5px 13px;border-radius:20px;font-size:0.76rem;font-weight:500}
+.tag.pink{background:var(--pink-soft);color:var(--cherry)}
+.tag.blue{background:var(--blue-soft);color:#3a7fa0}
+.tag.green{background:var(--green-soft);color:#3a7a3a}
+.tag.orange{background:var(--orange-soft);color:#b55a20}
+
+/* SAKURA */
+.sakura-divider{height:180px;overflow:hidden}
+.sakura-divider img{width:100%;height:100%;object-fit:cover;object-position:center 35%}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.project-card{border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;transition:transform 0.25s;display:block}
+.project-card:hover{transform:translateY(-4px)}
+.project-card-body{padding:1.4rem}
+.project-card-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;font-weight:500;margin-bottom:0.5rem}
+.project-card-title{font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:0.5rem;color:var(--dark)}
+.project-card-desc{font-size:0.82rem;color:var(--mid);line-height:1.73}
+.project-card-links{display:flex;flex-wrap:wrap;gap:6px;margin-top:1rem}
+.project-link{font-size:0.73rem;padding:4px 11px;border-radius:20px;text-decoration:none;border:1px solid;transition:all 0.2s;white-space:nowrap}
+.card-life{background:var(--pink-soft)}
+.card-life .project-card-label{color:var(--cherry)}
+.card-life .project-link{border-color:var(--pink);color:var(--cherry)}
+.card-life .project-link:hover{background:var(--cherry);color:#fff;border-color:var(--cherry)}
+.card-music{background:var(--orange-soft)}
+.card-music .project-card-label{color:var(--orange)}
+.card-music .project-link{border-color:var(--orange);color:var(--orange)}
+.card-music .project-link:hover{background:var(--orange);color:#fff}
+.card-writing{background:var(--blue-soft)}
+.card-writing .project-card-label{color:#3a7fa0}
+.card-writing .project-link{border-color:var(--blue);color:#3a7fa0}
+.card-writing .project-link:hover{background:#3a7fa0;color:#fff}
+
+/* CONTACT */
+.contact{background:var(--warm-white);text-align:center}
+.contact .section-title,.contact .section-desc{margin-left:auto;margin-right:auto}
+.contact-email{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--cherry);text-decoration:none;display:inline-block;margin-bottom:2.5rem;border-bottom:1px solid var(--pink);padding-bottom:3px}
+.social-links{display:flex;justify-content:center;flex-wrap:wrap;gap:0.7rem}
+.social-link{display:flex;align-items:center;gap:6px;padding:9px 17px;border-radius:30px;text-decoration:none;font-size:0.82rem;border:1.5px solid rgba(0,0,0,0.1);color:var(--dark);background:white;transition:all 0.2s}
+.social-link:hover{border-color:var(--cherry);color:var(--cherry)}
+
+footer{background:var(--dark);color:#888;text-align:center;padding:1.8rem 5vw;font-size:0.76rem}
+footer span{color:var(--cherry)}
+
+.fade-in{opacity:0;transform:translateY(16px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem}
+  .hero-photo{width:100%;max-width:260px;margin:0 auto}
+  .about-grid{grid-template-columns:1fr;gap:2rem}
+  .about-photo{width:100%;max-width:260px}
+  .projects-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-links,.nav-right{display:none}
+  .hamburger{display:flex}
+  .projects-grid{grid-template-columns:1fr}
+  section{padding:3.5rem 5vw}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Cherry Studio <span>Lab</span></a>
+    <ul class="nav-links">
+      <li><a href="#about" data-i18n="nav_about">About</a></li>
+      <li><a href="#projects" data-i18n="nav_projects">Projects</a></li>
+      <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn">🌐 EN ▾</button>
+        <div class="lang-dropdown" id="langDropdown">
+          <button class="lang-option active" onclick="setLang('en')">🇬🇧 English</button>
+          <button class="lang-option" onclick="setLang('es')">🇪🇸 Español</button>
+          <button class="lang-option" onclick="setLang('fr')">🇫🇷 Français</button>
+          <button class="lang-option" onclick="setLang('de')">🇩🇪 Deutsch</button>
+          <button class="lang-option" onclick="setLang('it')">🇮🇹 Italiano</button>
+          <button class="lang-option" onclick="setLang('ja')">🇯🇵 日本語</button>
+        </div>
+      </div>
+      <a href="mailto:cherrysololife@gmail.com" class="nav-contact" data-i18n="nav_cta">Get in touch</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()" data-i18n="nav_about">About</a>
+  <a href="#projects" onclick="toggleMenu()" data-i18n="nav_projects">Projects</a>
+  <a href="#contact" onclick="toggleMenu()" data-i18n="nav_contact">Contact</a>
+  <a href="mailto:cherrysololife@gmail.com">cherrysololife@gmail.com</a>
+</div>
+
+<!-- HERO -->
+<section style="padding:0">
+  <div class="hero-inner">
+    <div class="fade-in">
+      <p class="hero-label">Cherry Studio Lab</p>
+      <h1 class="hero-title" data-i18n="hero_title">Living life<br>on my own<br><em>terms.</em></h1>
+      <p class="hero-desc" data-i18n="hero_desc">I'm Cherry — a 55-year-old Tokyo-based creator sharing my solo life, original music, and honest thoughts with the world.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary" data-i18n="hero_btn1">Explore my work</a>
+        <a href="#contact" class="btn-secondary" data-i18n="hero_btn2">Get in touch</a>
+      </div>
+    </div>
+    <div class="hero-photo fade-in" style="transition-delay:0.15s">
+      <div class="hero-photo-main"><img src="cherry_cool.jpg" alt="Cherry"></div>
+      <div class="hero-photo-badge">
+        <img src="cherry_smile.jpg" alt="Cherry" class="avatar">
+        <div class="info"><strong>Cherry 🍒</strong><span>Tokyo, Japan</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-photo fade-in"><img src="cherry_smile.jpg" alt="Cherry"></div>
+      <div class="fade-in" style="transition-delay:0.1s">
+        <p class="section-label" data-i18n="about_label">About Cherry</p>
+        <h2 class="section-title" data-i18n="about_title">An independent creator in Tokyo</h2>
+        <div class="about-tags">
+          <span class="tag pink" data-i18n="tag1">55 & thriving</span>
+          <span class="tag pink" data-i18n="tag2">Solo life</span>
+          <span class="tag orange" data-i18n="tag3">Tokyo local</span>
+          <span class="tag blue" data-i18n="tag4">Music producer</span>
+          <span class="tag green" data-i18n="tag5">Writer</span>
+        </div>
+        <p style="font-size:0.92rem;color:var(--mid);line-height:1.85;margin-bottom:1rem" data-i18n="about_p1">After 18 years at a multinational corporation, I left to build life entirely on my own terms. I share that journey — my philosophy, my taste, my quiet Tokyo life — with a global audience across YouTube, music, and writing.</p>
+        <p style="font-size:0.92rem;color:var(--mid);line-height:1.85" data-i18n="about_p2">Everything I create is original: no stock music, no borrowed formats, no templates. Just my world, made from scratch.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sakura-divider"><img src="sakura.jpg" alt="Cherry blossoms in Tokyo"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <p class="section-label" data-i18n="proj_label">What I do</p>
+    <h2 class="section-title" data-i18n="proj_title">My creative world</h2>
+    <p class="section-desc" data-i18n="proj_desc">Three interconnected projects — all original, all made by me.</p>
+    <div class="projects-grid">
+      <div class="project-card card-life fade-in">
+        <div class="project-card-body">
+          <p class="project-card-label">🍒 Life</p>
+          <h3 class="project-card-title">Cherry's Solo Life in Japan</h3>
+          <p class="project-card-desc" data-i18n="life_desc">Wordless daily-life films from Tokyo, layered with life philosophy. A global community of real adults living on their own terms.</p>
+          <div class="project-card-links">
+            <a href="https://www.youtube.com/@cherrysololife" target="_blank" class="project-link">YouTube</a>
+            <a href="https://www.instagram.com/cherrysololife/" target="_blank" class="project-link">Instagram</a>
+            <a href="https://www.tiktok.com/@cherrysololife" target="_blank" class="project-link">TikTok</a>
+            <a href="https://cherrysololife.substack.com" target="_blank" class="project-link">Substack</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card card-music fade-in" style="transition-delay:0.1s">
+        <div class="project-card-body">
+          <p class="project-card-label">🎵 Music</p>
+          <h3 class="project-card-title">Cherry's Cafe</h3>
+          <p class="project-card-desc" data-i18n="music_desc">Original cozy bossa nova and jazz, composed and produced by Cherry. The soundtrack of a quiet, beautiful life — on all streaming platforms.</p>
+          <div class="project-card-links">
+            <a href="https://open.spotify.com/artist/3J4wp5fpwPWukYhEHkCw2B" target="_blank" class="project-link">Spotify</a>
+            <a href="https://www.youtube.com/@cherryscafemusic" target="_blank" class="project-link">YouTube</a>
+            <a href="https://suzuri.jp/CherryStudioLab" target="_blank" class="project-link">Shop</a>
+          </div>
+        </div>
+      </div>
+      <div class="project-card card-writing fade-in" style="transition-delay:0.2s">
+        <div class="project-card-body">
+          <p class="project-card-label">✍️ Writing</p>
+          <h3 class="project-card-title" data-i18n="writing_title">Essays & Recipes</h3>
+          <p class="project-card-desc" data-i18n="writing_desc">Deep-dive essays in English and Japanese on Substack. Plus a growing collection of solo kitchen recipes — coming soon.</p>
+          <div class="project-card-links">
+            <a href="https://cherrysololife.substack.com" target="_blank" class="project-link">Substack</a>
+            <span class="project-link" style="opacity:0.4;cursor:default" data-i18n="recipes_soon">Recipes — soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-inner fade-in">
+    <p class="section-label" data-i18n="contact_label">Get in touch</p>
+    <h2 class="section-title" data-i18n="contact_title">Let's work together</h2>
+    <p class="section-desc" data-i18n="contact_desc">For collaborations, sponsorships, and press inquiries.</p>
+    <br>
+    <a href="mailto:cherrysololife@gmail.com" class="contact-email">cherrysololife@gmail.com</a>
+    <div class="social-links">
+      <a href="https://www.youtube.com/@cherrysololife" target="_blank" class="social-link">▶ YouTube</a>
+      <a href="https://www.instagram.com/cherrysololife/" target="_blank" class="social-link">◎ Instagram</a>
+      <a href="https://www.tiktok.com/@cherrysololife" target="_blank" class="social-link">♪ TikTok</a>
+      <a href="https://cherrysololife.substack.com" target="_blank" class="social-link">✉ Substack</a>
+      <a href="https://open.spotify.com/artist/3J4wp5fpwPWukYhEHkCw2B" target="_blank" class="social-link">♫ Spotify</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 <span>Cherry Studio Lab</span> · Tokyo, Japan · All content original</p>
+</footer>
+
+<script>
+const i18n = {
+  en: {
+    nav_about:'About', nav_projects:'Projects', nav_contact:'Contact', nav_cta:'Get in touch',
+    hero_title:'Living life<br>on my own<br><em>terms.</em>',
+    hero_desc:"I'm Cherry — a 55-year-old Tokyo-based creator sharing my solo life, original music, and honest thoughts with the world.",
+    hero_btn1:'Explore my work', hero_btn2:'Get in touch',
+    about_label:'About Cherry', about_title:'An independent creator in Tokyo',
+    tag1:'55 & thriving', tag2:'Solo life', tag3:'Tokyo local', tag4:'Music producer', tag5:'Writer',
+    about_p1:'After 18 years at a multinational corporation, I left to build life entirely on my own terms. I share that journey — my philosophy, my taste, my quiet Tokyo life — with a global audience across YouTube, music, and writing.',
+    about_p2:'Everything I create is original: no stock music, no borrowed formats, no templates. Just my world, made from scratch.',
+    proj_label:'What I do', proj_title:'My creative world', proj_desc:'Three interconnected projects — all original, all made by me.',
+    life_desc:'Wordless daily-life films from Tokyo, layered with life philosophy. A global community of real adults living on their own terms.',
+    music_desc:'Original cozy bossa nova and jazz, composed and produced by Cherry. The soundtrack of a quiet, beautiful life — on all streaming platforms.',
+    writing_title:'Essays & Recipes', writing_desc:'Deep-dive essays in English and Japanese on Substack. Plus a growing collection of solo kitchen recipes — coming soon.',
+    recipes_soon:'Recipes — soon',
+    contact_label:'Get in touch', contact_title:"Let's work together", contact_desc:'For collaborations, sponsorships, and press inquiries.',
+    lang_label:'EN'
+  },
+  es: {
+    nav_about:'Acerca de', nav_projects:'Proyectos', nav_contact:'Contacto', nav_cta:'Contactar',
+    hero_title:'Viviendo la vida<br>según mis<br><em>propias reglas.</em>',
+    hero_desc:'Soy Cherry — una creadora de Tokio con 55 años que comparte su vida en solitario, música original y pensamientos honestos con el mundo.',
+    hero_btn1:'Ver mi trabajo', hero_btn2:'Contactar',
+    about_label:'Sobre Cherry', about_title:'Una creadora independiente en Tokio',
+    tag1:'55 y en forma', tag2:'Vida en solitario', tag3:'Local de Tokio', tag4:'Productora musical', tag5:'Escritora',
+    about_p1:'Después de 18 años en una multinacional, dejé el trabajo para construir mi vida según mis propios términos. Comparto ese viaje — mi filosofía, mi gusto, mi tranquila vida en Tokio — con una audiencia global a través de YouTube, música y escritura.',
+    about_p2:'Todo lo que creo es original: sin música de stock, sin formatos prestados, sin plantillas. Solo mi mundo, hecho desde cero.',
+    proj_label:'Lo que hago', proj_title:'Mi mundo creativo', proj_desc:'Tres proyectos interconectados — todos originales, todos hechos por mí.',
+    life_desc:'Películas silenciosas de vida cotidiana desde Tokio, con filosofía de vida. Una comunidad global de adultos reales que viven según sus propias reglas.',
+    music_desc:'Bossa nova y jazz acogedor original, compuesto y producido por Cherry. La banda sonora de una vida tranquila y hermosa — en todas las plataformas.',
+    writing_title:'Ensayos y Recetas', writing_desc:'Ensayos profundos en inglés y japonés en Substack. Más una colección de recetas de cocina en solitario — próximamente.',
+    recipes_soon:'Recetas — próximamente',
+    contact_label:'Contactar', contact_title:'Trabajemos juntos', contact_desc:'Para colaboraciones, patrocinios y consultas de prensa.',
+    lang_label:'ES'
+  },
+  fr: {
+    nav_about:'À propos', nav_projects:'Projets', nav_contact:'Contact', nav_cta:'Me contacter',
+    hero_title:'Vivre la vie<br>selon mes<br><em>propres règles.</em>',
+    hero_desc:'Je suis Cherry — une créatrice basée à Tokyo, 55 ans, qui partage sa vie en solo, sa musique originale et ses pensées sincères avec le monde.',
+    hero_btn1:'Découvrir mon travail', hero_btn2:'Me contacter',
+    about_label:'À propos de Cherry', about_title:'Une créatrice indépendante à Tokyo',
+    tag1:'55 ans et épanouie', tag2:'Vie en solo', tag3:'Tokyoïte', tag4:'Productrice musicale', tag5:'Écrivaine',
+    about_p1:'Après 18 ans dans une multinationale, j\'ai tout quitté pour construire ma vie selon mes propres règles. Je partage ce voyage — ma philosophie, mes goûts, ma vie tranquille à Tokyo — avec un public mondial sur YouTube, en musique et en écriture.',
+    about_p2:'Tout ce que je crée est original : pas de musique de stock, pas de formats empruntés, pas de modèles. Juste mon monde, fait de zéro.',
+    proj_label:'Ce que je fais', proj_title:'Mon univers créatif', proj_desc:'Trois projets interconnectés — tous originaux, tous faits par moi.',
+    life_desc:'Des films silencieux de vie quotidienne depuis Tokyo, enrichis de philosophie de vie. Une communauté mondiale d\'adultes authentiques vivant selon leurs propres règles.',
+    music_desc:'Bossa nova et jazz cosy originaux, composés et produits par Cherry. La bande sonore d\'une vie tranquille et belle — sur toutes les plateformes.',
+    writing_title:'Essais & Recettes', writing_desc:'Des essais approfondis en anglais et japonais sur Substack. Plus une collection de recettes de cuisine en solo — bientôt disponible.',
+    recipes_soon:'Recettes — bientôt',
+    contact_label:'Contact', contact_title:'Travaillons ensemble', contact_desc:'Pour les collaborations, parrainages et demandes presse.',
+    lang_label:'FR'
+  },
+  de: {
+    nav_about:'Über mich', nav_projects:'Projekte', nav_contact:'Kontakt', nav_cta:'Kontakt aufnehmen',
+    hero_title:'Leben nach<br>meinen eigenen<br><em>Regeln.</em>',
+    hero_desc:'Ich bin Cherry — eine 55-jährige Tokioter Kreative, die ihr Solo-Leben, Originalmusik und ehrliche Gedanken mit der Welt teilt.',
+    hero_btn1:'Meine Arbeit entdecken', hero_btn2:'Kontakt aufnehmen',
+    about_label:'Über Cherry', about_title:'Eine unabhängige Kreative in Tokio',
+    tag1:'55 & im Aufblühen', tag2:'Solo-Leben', tag3:'Tokio-Lokal', tag4:'Musikproduzentin', tag5:'Autorin',
+    about_p1:'Nach 18 Jahren in einem multinationalen Unternehmen habe ich aufgehört, um mein Leben nach meinen eigenen Vorstellungen zu gestalten. Ich teile diese Reise — meine Philosophie, meinen Geschmack, mein ruhiges Tokioter Leben — mit einem weltweiten Publikum über YouTube, Musik und Schreiben.',
+    about_p2:'Alles, was ich schaffe, ist original: keine Stockmusik, keine geliehenen Formate, keine Vorlagen. Nur meine Welt, von Grund auf neu gemacht.',
+    proj_label:'Was ich mache', proj_title:'Meine kreative Welt', proj_desc:'Drei miteinander verbundene Projekte — alle original, alle von mir gemacht.',
+    life_desc:'Wortlose Alltagsfilme aus Tokio, mit Lebensphilosophie durchwoben. Eine globale Gemeinschaft echter Erwachsener, die nach ihren eigenen Regeln leben.',
+    music_desc:'Originale gemütliche Bossa Nova und Jazz, komponiert und produziert von Cherry. Der Soundtrack eines ruhigen, schönen Lebens — auf allen Streaming-Plattformen.',
+    writing_title:'Essays & Rezepte', writing_desc:'Tiefgehende Essays auf Englisch und Japanisch auf Substack. Dazu eine wachsende Sammlung von Solo-Küche-Rezepten — demnächst.',
+    recipes_soon:'Rezepte — demnächst',
+    contact_label:'Kontakt', contact_title:'Lass uns zusammenarbeiten', contact_desc:'Für Kooperationen, Sponsoring und Presseanfragen.',
+    lang_label:'DE'
+  },
+  it: {
+    nav_about:'Chi sono', nav_projects:'Progetti', nav_contact:'Contatti', nav_cta:'Contattami',
+    hero_title:'Vivere la vita<br>secondo le mie<br><em>regole.</em>',
+    hero_desc:'Sono Cherry — una creatrice di Tokyo di 55 anni che condivide la sua vita da sola, musica originale e pensieri onesti con il mondo.',
+    hero_btn1:'Scopri il mio lavoro', hero_btn2:'Contattami',
+    about_label:'Chi è Cherry', about_title:'Una creatrice indipendente a Tokyo',
+    tag1:'55 e in fiore', tag2:'Vita in solitario', tag3:'Tokyoita', tag4:'Produttrice musicale', tag5:'Scrittrice',
+    about_p1:'Dopo 18 anni in una multinazionale, ho lasciato tutto per costruire la vita secondo i miei termini. Condivido quel viaggio — la mia filosofia, il mio gusto, la mia tranquilla vita a Tokyo — con un pubblico globale attraverso YouTube, musica e scrittura.',
+    about_p2:'Tutto ciò che creo è originale: nessuna musica stock, nessun formato in prestito, nessun modello. Solo il mio mondo, fatto da zero.',
+    proj_label:'Cosa faccio', proj_title:'Il mio mondo creativo', proj_desc:'Tre progetti interconnessi — tutti originali, tutti fatti da me.',
+    life_desc:'Film silenziosi di vita quotidiana da Tokyo, con filosofia di vita. Una comunità globale di adulti veri che vivono secondo le proprie regole.',
+    music_desc:'Bossa nova e jazz accoglienti originali, composti e prodotti da Cherry. La colonna sonora di una vita tranquilla e bella — su tutte le piattaforme.',
+    writing_title:'Saggi e Ricette', writing_desc:'Saggi approfonditi in inglese e giapponese su Substack. Più una raccolta di ricette di cucina in solitario — prossimamente.',
+    recipes_soon:'Ricette — prossimamente',
+    contact_label:'Contatti', contact_title:'Lavoriamo insieme', contact_desc:'Per collaborazioni, sponsorizzazioni e richieste stampa.',
+    lang_label:'IT'
+  },
+  ja: {
+    nav_about:'プロフィール', nav_projects:'活動', nav_contact:'お問い合わせ', nav_cta:'連絡する',
+    hero_title:'自分の人生を<br>自分の<br><em>ルールで。</em>',
+    hero_desc:'チェリーです。東京在住55歳。ひとり暮らしの日常・オリジナル音楽・人生哲学を世界に向けて発信しています。',
+    hero_btn1:'活動を見る', hero_btn2:'連絡する',
+    about_label:'チェリーについて', about_title:'東京在住のインディペンデントクリエイター',
+    tag1:'55歳・全力で生きる', tag2:'ソロライフ', tag3:'東京ローカル', tag4:'音楽プロデューサー', tag5:'ライター',
+    about_p1:'18年勤めた外資系企業を退職し、自分の思い通りの人生を築くことにしました。その歩みを——私の哲学、センス、静かな東京の日常とともに——YouTubeや音楽、ライティングを通じて世界中の視聴者にシェアしています。',
+    about_p2:'発信するものはすべてオリジナル。フリー音源なし、借り物のフォーマットなし、テンプレートなし。ただ私の世界を、ゼロから。',
+    proj_label:'活動内容', proj_title:'私のクリエイティブな世界', proj_desc:'3つの活動——すべてオリジナル、すべて私が作っています。',
+    life_desc:'東京の日常を、言葉を使わずに映像で届けるチャンネル。人生哲学のテロップを添えて。自分らしく生きる大人たちのグローバルコミュニティ。',
+    music_desc:'チェリーが自ら作曲・制作するオリジナルのコージーなボサノバとジャズ。静かで美しい生活の soundtrack。各種ストリーミングサービスで配信中。',
+    writing_title:'エッセイ＆レシピ', writing_desc:'Substackで英語と日本語のエッセイを深掘り配信中。ソロキッチンのレシピ集も近日公開予定。',
+    recipes_soon:'レシピ——近日公開',
+    contact_label:'お問い合わせ', contact_title:'一緒に仕事をしましょう', contact_desc:'コラボ・スポンサーシップ・取材のご依頼はこちらから。',
+    lang_label:'JP'
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.getElementById('langBtn').innerHTML = '🌐 ' + t.lang_label + ' ▾';
+  document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('onclick').includes("'"+lang+"'"));
+  });
+  document.getElementById('langDropdown').classList.remove('open');
+  document.documentElement.lang = lang;
+}
+
+function toggleLang() {
+  document.getElementById('langDropdown').classList.toggle('open');
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.lang-switcher')) {
+    document.getElementById('langDropdown').classList.remove('open');
+  }
+});
+
+function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+  });
+});
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
+window.addEventListener('load',()=>{
+  document.querySelectorAll('.hero-inner .fade-in').forEach(el=>el.classList.add('visible'));
+});
+</script>
+</body>
+</html>
