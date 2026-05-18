@@ -148,6 +148,14 @@ footer span{color:var(--cherry)}
   .projects-grid{grid-template-columns:1fr}
   section{padding:3.5rem 5vw}
 }
+
+.qr-section{margin-top:3rem;padding-top:2.5rem;border-top:1px solid rgba(0,0,0,0.08)}
+.qr-title{font-size:0.78rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--light);margin-bottom:1.8rem;font-weight:500}
+.qr-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:2rem}
+.qr-item{display:flex;flex-direction:column;align-items:center;gap:0.6rem}
+.qr-item img{width:100px;height:100px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);padding:6px;background:white}
+.qr-item span{font-size:0.76rem;color:var(--mid);font-weight:500}
+@media(max-width:640px){.qr-grid{gap:1.2rem}.qr-item img{width:80px;height:80px}}
 </style>
 </head>
 <body>
@@ -293,6 +301,32 @@ footer span{color:var(--cherry)}
       <a href="https://cherrysololife.substack.com" target="_blank" class="social-link">✉ Substack</a>
       <a href="https://open.spotify.com/artist/3J4wp5fpwPWukYhEHkCw2B" target="_blank" class="social-link">♫ Spotify</a>
     </div>
+
+    <div class="qr-section">
+      <p class="qr-title" data-i18n="qr_title">Scan to follow on your phone</p>
+      <div class="qr-grid">
+        <div class="qr-item">
+          <img src="qr_youtube.png" alt="YouTube QR">
+          <span>YouTube</span>
+        </div>
+        <div class="qr-item">
+          <img src="qr_instagram.png" alt="Instagram QR">
+          <span>Instagram</span>
+        </div>
+        <div class="qr-item">
+          <img src="qr_tiktok.png" alt="TikTok QR">
+          <span>TikTok</span>
+        </div>
+        <div class="qr-item">
+          <img src="qr_substack.png" alt="Substack QR">
+          <span>Substack</span>
+        </div>
+        <div class="qr-item">
+          <img src="qr_spotify.png" alt="Spotify QR">
+          <span>Cherry's Cafe</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -317,6 +351,7 @@ const i18n = {
     writing_title:'Essays & Recipes', writing_desc:'Deep-dive essays in English and Japanese on Substack. Plus a growing collection of solo kitchen recipes — coming soon.',
     recipes_soon:'Recipes — soon',
     contact_label:'Get in touch', contact_title:"Let's work together", contact_desc:'For collaborations, sponsorships, and press inquiries.',
+    qr_title:'Scan to follow on your phone',
     lang_label:'EN'
   },
   es: {
@@ -334,6 +369,7 @@ const i18n = {
     writing_title:'Ensayos y Recetas', writing_desc:'Ensayos profundos en inglés y japonés en Substack. Más una colección de recetas de cocina en solitario — próximamente.',
     recipes_soon:'Recetas — próximamente',
     contact_label:'Contactar', contact_title:'Trabajemos juntos', contact_desc:'Para colaboraciones, patrocinios y consultas de prensa.',
+    qr_title:'Escanea para seguir en tu móvil',
     lang_label:'ES'
   },
   fr: {
@@ -351,6 +387,7 @@ const i18n = {
     writing_title:'Essais & Recettes', writing_desc:'Des essais approfondis en anglais et japonais sur Substack. Plus une collection de recettes de cuisine en solo — bientôt disponible.',
     recipes_soon:'Recettes — bientôt',
     contact_label:'Contact', contact_title:'Travaillons ensemble', contact_desc:'Pour les collaborations, parrainages et demandes presse.',
+    qr_title:'Scannez pour suivre sur votre téléphone',
     lang_label:'FR'
   },
   de: {
@@ -368,6 +405,7 @@ const i18n = {
     writing_title:'Essays & Rezepte', writing_desc:'Tiefgehende Essays auf Englisch und Japanisch auf Substack. Dazu eine wachsende Sammlung von Solo-Küche-Rezepten — demnächst.',
     recipes_soon:'Rezepte — demnächst',
     contact_label:'Kontakt', contact_title:'Lass uns zusammenarbeiten', contact_desc:'Für Kooperationen, Sponsoring und Presseanfragen.',
+    qr_title:'Scannen zum Folgen auf dem Handy',
     lang_label:'DE'
   },
   it: {
@@ -385,6 +423,7 @@ const i18n = {
     writing_title:'Saggi e Ricette', writing_desc:'Saggi approfonditi in inglese e giapponese su Substack. Più una raccolta di ricette di cucina in solitario — prossimamente.',
     recipes_soon:'Ricette — prossimamente',
     contact_label:'Contatti', contact_title:'Lavoriamo insieme', contact_desc:'Per collaborazioni, sponsorizzazioni e richieste stampa.',
+    qr_title:'Scansiona per seguire sul telefono',
     lang_label:'IT'
   },
   ja: {
@@ -402,6 +441,7 @@ const i18n = {
     writing_title:'エッセイ＆レシピ', writing_desc:'Substackで英語と日本語のエッセイを深掘り配信中。ソロキッチンのレシピ集も近日公開予定。',
     recipes_soon:'レシピ——近日公開',
     contact_label:'お問い合わせ', contact_title:'一緒に仕事をしましょう', contact_desc:'コラボ・スポンサーシップ・取材のご依頼はこちらから。',
+    qr_title:'スマホでスキャンしてフォロー',
     lang_label:'JP'
   }
 };
