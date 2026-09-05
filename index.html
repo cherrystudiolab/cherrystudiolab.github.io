@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cherry Studio Lab</title>
+<meta name="description" content="Cherry’s creative world from Tokyo: solo-life films, original music, letters, Japanese conversation and original goods.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
@@ -28,7 +29,7 @@
   --mid:#666;
   --light:#999;
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
 body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--dark);overflow-x:hidden}
 
 /* NAV */
@@ -167,7 +168,8 @@ footer span{color:var(--cherry)}
   .projects-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
-  .nav-links,.nav-right{display:none}
+  .nav-links,.nav-contact{display:none}
+  .nav-right{display:flex;margin-left:auto;margin-right:14px}
   .hamburger{display:flex}
   .projects-grid{grid-template-columns:1fr}
   section{padding:3.5rem 5vw}
@@ -180,8 +182,22 @@ footer span{color:var(--cherry)}
 .qr-item img{width:100px;height:100px;border-radius:10px;border:1px solid rgba(0,0,0,0.08);padding:6px;background:white}
 .qr-item span{font-size:0.76rem;color:var(--mid);font-weight:500}
 @media(max-width:640px){.qr-grid{gap:1.2rem}.qr-item img{width:80px;height:80px}}
+
+.hamburger{background:none;border:0}
+.post-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.post-preview{display:flex;flex-direction:column;gap:8px;color:var(--dark);text-decoration:none;border-radius:10px;overflow:hidden;background:var(--warm-white);padding-bottom:10px;min-width:0}
+.post-preview img{width:100%;aspect-ratio:1;object-fit:cover}
+.post-preview span{padding:10px 10px 0;font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.post-preview time{padding:0 10px;color:var(--mid);font-size:12px;margin-top:auto}
+.post-preview:hover{outline:1px solid var(--cherry)}
+.feed-visit{display:block;position:relative;border-radius:12px;overflow:hidden;color:white;background:var(--dark)}
+.feed-visit img{width:100%;height:340px;object-fit:cover;display:block}
+.feed-visit span{position:absolute;bottom:0;left:0;right:0;padding:35px 16px 16px;background:linear-gradient(transparent,rgba(0,0,0,.8));font-size:16px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--cherry);outline-offset:4px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fade-in{opacity:1;transform:none;transition:none}}
 </style>
-</head>
+<noscript><style>.fade-in{opacity:1;transform:none}</style></noscript>
+<link rel="stylesheet" href="studio.css?v=9"></head>
 <body>
 
 <nav>
@@ -195,7 +211,7 @@ footer span{color:var(--cherry)}
     </ul>
     <div class="nav-right">
       <div class="lang-switcher">
-        <button class="lang-btn" onclick="toggleLang()" id="langBtn">🌐 EN ▾</button>
+        <button class="lang-btn" onclick="toggleLang()" id="langBtn" aria-expanded="false" aria-controls="langDropdown">🌐 EN ▾</button>
         <div class="lang-dropdown" id="langDropdown">
           <button class="lang-option active" onclick="setLang('en')">🇬🇧 English</button>
           <button class="lang-option" onclick="setLang('es')">🇪🇸 Español</button>
@@ -207,7 +223,7 @@ footer span{color:var(--cherry)}
       </div>
       <a href="mailto:cherrysololife@gmail.com" class="nav-contact" data-i18n="nav_cta">Get in touch</a>
     </div>
-    <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    <button class="hamburger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -245,7 +261,7 @@ footer span{color:var(--cherry)}
 <section class="about" id="about">
   <div class="section-inner">
     <div class="about-grid">
-      <div class="about-photo fade-in"><img src="cherry_smile.jpg" alt="Cherry"></div>
+      <div class="about-photo fade-in"><img src="cherry-home.jpg" alt="Cherry at home in Tokyo" loading="lazy"></div>
       <div class="fade-in" style="transition-delay:0.1s">
         <p class="section-label" data-i18n="about_label">About Cherry</p>
         <h2 class="section-title" data-i18n="about_title">An independent creator in Tokyo</h2>
@@ -272,57 +288,58 @@ footer span{color:var(--cherry)}
     <h2 class="section-title" data-i18n="proj_title">My creative world</h2>
     <p class="section-desc" data-i18n="proj_desc">Five interconnected projects — all original, all made by me.</p>
     <div class="projects-grid">
-      <div class="project-card card-life fade-in">
+      <div class="project-card card-life fade-in"><div class="project-media"><div class="project-frame"><img class="project-photo" src="solo-life-square.jpeg" alt="Cherry’s Solo Life in Japan" loading="lazy"></div></div>
         <div class="project-card-body">
           <p class="project-card-label">🍒 Life</p>
           <h3 class="project-card-title">Cherry's Solo Life in Japan</h3>
           <p class="project-card-desc" data-i18n="life_desc">Wordless daily-life films from Tokyo, layered with life philosophy. A global community of real adults living on their own terms.</p>
           <div class="project-card-links">
-            <a href="https://www.youtube.com/@cherrysololife" target="_blank" class="project-link">YouTube</a>
-            <a href="https://www.instagram.com/cherrysololife/" target="_blank" class="project-link">Instagram</a>
-            <a href="https://www.tiktok.com/@cherrysololife" target="_blank" class="project-link">TikTok</a>
-            <a href="https://cherrysololife.substack.com" target="_blank" class="project-link">Substack</a>
+            <a href="https://www.youtube.com/@cherrysololife" target="_blank" rel="noopener noreferrer" class="project-link">YouTube</a>
+            <a href="https://www.instagram.com/cherrysololife/" target="_blank" rel="noopener noreferrer" class="project-link">Instagram</a>
+            <a href="https://www.tiktok.com/@cherrysololife" target="_blank" rel="noopener noreferrer" class="project-link">TikTok</a>
+            <a href="https://cherrysololife.substack.com" target="_blank" rel="noopener noreferrer" class="project-link">Substack</a>
           </div>
         </div>
       </div>
-      <div class="project-card card-music fade-in" style="transition-delay:0.1s">
+      <div class="project-card card-music fade-in" style="transition-delay:0.1s"><div class="project-media"><div class="project-frame"><img class="project-photo" src="cafe-bossa06.jpg" alt="Cherry’s Cafe, Cozy Bossa Vol.06 album cover" loading="lazy"></div></div>
         <div class="project-card-body">
           <p class="project-card-label">🎵 Music</p>
           <h3 class="project-card-title">Cherry's Cafe</h3>
           <p class="project-card-desc" data-i18n="music_desc">Original cozy bossa nova and jazz, composed and produced by Cherry. The soundtrack of a quiet, beautiful life — on all streaming platforms.</p>
           <div class="project-card-links">
-            <a href="https://open.spotify.com/artist/3J4wp5fpwPWukYhEHkCw2B" target="_blank" class="project-link">Spotify</a>
-            <a href="https://www.youtube.com/@cherryscafemusic" target="_blank" class="project-link">YouTube</a>
+            <a href="https://open.spotify.com/artist/3J4wp5fpwPWukYhEHkCw2B" target="_blank" rel="noopener noreferrer" class="project-link">Spotify</a>
+            <a href="https://www.youtube.com/@cherryscafemusic" target="_blank" rel="noopener noreferrer" class="project-link">YouTube</a>
           </div>
         </div>
       </div>
-      <div class="project-card card-letter fade-in" style="transition-delay:0.3s">
+      <div class="project-card card-letter fade-in" style="transition-delay:0.3s"><div class="project-media"><div class="project-frame"><img class="project-photo" src="letter-club.png" alt="Cherry’s Letter Club" loading="lazy"></div></div>
         <div class="project-card-body">
           <p class="project-card-label">💌 Letter Club</p>
           <h3 class="project-card-title" data-i18n="letter_title">Cherry's Letter Club</h3>
           <p class="project-card-desc" data-i18n="letter_desc">A physical snail mail subscription — handwritten letters and seasonal surprises delivered to your door every month.</p>
           <div class="project-card-links">
-            <a href="https://patreon.com/CherrysStudioLab" target="_blank" class="project-link" data-i18n="letter_link">Join on Patreon</a>
+            <a href="https://patreon.com/CherrysStudioLab" target="_blank" rel="noopener noreferrer" class="project-link" data-i18n="letter_link">Join on Patreon</a>
           </div>
         </div>
       </div>
-      <div class="project-card card-lesson fade-in" style="transition-delay:0.4s">
+      <div class="project-card card-lesson fade-in" style="transition-delay:0.4s"><div class="project-media"><div class="project-frame"><img class="project-photo" src="japanese-lessons.png" alt="Japanese sessions with Cherry" loading="lazy"></div></div>
         <div class="project-card-body">
           <p class="project-card-label">📚 Lesson</p>
           <h3 class="project-card-title" data-i18n="lesson_title">Japanese Conversation with Cherry</h3>
           <p class="project-card-desc" data-i18n="lesson_desc">Real 1-on-1 Japanese conversation practice, made for people who already study on their own and just want to speak.</p>
           <div class="project-card-links">
-            <a href="https://patreon.com/CherrysStudioLab" target="_blank" class="project-link" data-i18n="lesson_link">Book on Patreon</a>
+            <a href="https://patreon.com/CherrysStudioLab" target="_blank" rel="noopener noreferrer" class="project-link" data-i18n="lesson_link">Book on Patreon</a>
           </div>
         </div>
       </div>
-      <div class="project-card card-shop fade-in" style="transition-delay:0.5s">
+      <div id="shop" class="project-card card-shop fade-in" style="transition-delay:0.5s">
         <div class="project-card-body">
           <p class="project-card-label">🛍️ Shop</p>
           <h3 class="project-card-title" data-i18n="shop_title">Cherry Studio Lab Shop</h3>
+          <div id="shop-products" class="shop-products" hidden></div>
           <p class="project-card-desc" data-i18n="shop_desc">Original goods from Cherry Studio Lab — the studio behind everything I make.</p>
           <div class="project-card-links">
-            <a href="https://cherrystudiolab-shop.fourthwall.com/" target="_blank" class="project-link" data-i18n="shop_link">Visit Shop</a>
+            <a href="https://cherrystudiolab-shop.fourthwall.com/" target="_blank" rel="noopener noreferrer" class="project-link" data-i18n="shop_link">Visit Shop</a>
           </div>
         </div>
       </div>
@@ -340,31 +357,33 @@ footer span{color:var(--cherry)}
       <div class="follow-card fade-in">
         <div class="follow-card-head">
           <h3>◎ Instagram</h3>
-          <a href="https://www.instagram.com/cherrysololife/" target="_blank" class="follow-more" data-i18n="follow_more">See more →</a>
+          <a href="https://www.instagram.com/cherrysololife/" target="_blank" rel="noopener noreferrer" class="follow-more" data-i18n="follow_more">See more →</a>
         </div>
-        <div class="follow-embed">
-          <!-- SnapWidget: replace src below with your embed code from snapwidget.com -->
-          <iframe src="https://snapwidget.com/embed/YOUR_SNAPWIDGET_ID" class="snapwidget-widget" allowtransparency="true" frameborder="0" scrolling="no" style="border:none;overflow:hidden;width:100%;height:340px"></iframe>
+        <div id="instagram-feed" class="feed-container">
+          <a class="feed-visit" href="https://www.instagram.com/cherrysololife/" target="_blank" rel="noopener noreferrer">
+            <img src="cherry-sunglasses.jpg" alt="Cherry wearing sunglasses" loading="lazy">
+            <span>@cherrysololife ↗</span>
+          </a>
         </div>
       </div>
       <div class="follow-card fade-in" style="transition-delay:0.1s">
         <div class="follow-card-head">
           <h3>▶ YouTube</h3>
-          <a href="https://www.youtube.com/@cherrysololife" target="_blank" class="follow-more" data-i18n="follow_more">See more →</a>
+          <a href="https://www.youtube.com/@cherrysololife" target="_blank" rel="noopener noreferrer" class="follow-more" data-i18n="follow_more">See more →</a>
         </div>
         <div class="follow-embed">
-          <iframe src="https://www.youtube.com/embed/videoseries?list=UU2Z0txP23GnNu2cY44wv9fA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="height:340px"></iframe>
+          <iframe title="Cherry’s Solo Life in Japan — YouTube" src="https://www.youtube.com/embed/videoseries?list=UU2Z0txP23GnNu2cY44wv9fA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="height:340px"></iframe>
         </div>
       </div>
       <div class="follow-card fade-in" style="transition-delay:0.2s">
         <div class="follow-card-head">
           <h3>♥ Patreon</h3>
-          <a href="https://patreon.com/CherrysStudioLab" target="_blank" class="follow-more" data-i18n="follow_more">See more →</a>
+          <a href="https://patreon.com/CherrysStudioLab" target="_blank" rel="noopener noreferrer" class="follow-more" data-i18n="follow_more">See more →</a>
         </div>
-        <div class="follow-embed" style="min-height:auto;display:flex;align-items:center;justify-content:center;padding:2.4rem 1rem;background:var(--purple-soft)">
-          <div style="text-align:center">
+        <div id="patreon-feed" class="follow-embed" style="min-height:auto;display:flex;align-items:center;justify-content:center;padding:2.4rem 1rem;background:var(--purple-soft)">
+          <div style="text-align:center"><img src="letter-club.png" alt="Cherry’s Letter Club" style="width:100%;height:auto;margin-bottom:20px" loading="lazy">
             <p style="font-size:0.88rem;color:var(--mid);line-height:1.8;margin-bottom:1.2rem" data-i18n="patreon_blurb">Letter Club membership, Japanese Conversation, and everything else Cherry runs as a community — all hosted on Patreon.</p>
-            <a href="https://patreon.com/CherrysStudioLab" target="_blank" class="btn-primary" style="background:#7a5a9e" data-i18n="patreon_btn">Visit Patreon</a>
+            <a href="https://patreon.com/CherrysStudioLab" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background:#7a5a9e" data-i18n="patreon_btn">Visit Patreon</a>
           </div>
         </div>
       </div>
@@ -381,11 +400,11 @@ footer span{color:var(--cherry)}
     <br>
     <a href="mailto:cherrysololife@gmail.com" class="contact-email">cherrysololife@gmail.com</a>
     <div class="social-links">
-      <a href="https://www.youtube.com/@cherrysololife" target="_blank" class="social-link">▶ YouTube</a>
-      <a href="https://www.instagram.com/cherrysololife/" target="_blank" class="social-link">◎ Instagram</a>
-      <a href="https://www.tiktok.com/@cherrysololife" target="_blank" class="social-link">♪ TikTok</a>
-      <a href="https://cherrysololife.substack.com" target="_blank" class="social-link">✉ Substack</a>
-      <a href="https://open.spotify.com/artist/3J4wp5fpwPWukYhEHkCw2B" target="_blank" class="social-link">♫ Spotify</a>
+      <a href="https://www.youtube.com/@cherrysololife" target="_blank" rel="noopener noreferrer" class="social-link">▶ YouTube</a>
+      <a href="https://www.instagram.com/cherrysololife/" target="_blank" rel="noopener noreferrer" class="social-link">◎ Instagram</a>
+      <a href="https://www.tiktok.com/@cherrysololife" target="_blank" rel="noopener noreferrer" class="social-link">♪ TikTok</a>
+      <a href="https://cherrysololife.substack.com" target="_blank" rel="noopener noreferrer" class="social-link">✉ Substack</a>
+      <a href="https://open.spotify.com/artist/3J4wp5fpwPWukYhEHkCw2B" target="_blank" rel="noopener noreferrer" class="social-link">♫ Spotify</a>
     </div>
 
     <div class="qr-section">
@@ -457,7 +476,7 @@ const i18n = {
     tag1:'55 y en forma', tag2:'Vida en solitario', tag3:'Local de Tokio', tag4:'Productora musical', tag5:'Escritora',
     about_p1:'Después de 18 años en una multinacional, dejé el trabajo para construir mi vida según mis propios términos. Comparto ese viaje — mi filosofía, mi gusto, mi tranquila vida en Tokio — con una audiencia global a través de YouTube, música y escritura.',
     about_p2:'Todo lo que creo es original: sin música de stock, sin formatos prestados, sin plantillas. Solo mi mundo, hecho desde cero.',
-    proj_label:'Lo que hago', proj_title:'Mi mundo creativo', proj_desc:'Tres proyectos interconectados — todos originales, todos hechos por mí.',
+    proj_label:'Lo que hago', proj_title:'Mi mundo creativo', proj_desc:'Cinco proyectos interconectados — todos originales, todos hechos por mí.',
     life_desc:'Películas silenciosas de vida cotidiana desde Tokio, con filosofía de vida. Una comunidad global de adultos reales que viven según sus propias reglas.',
     music_desc:'Bossa nova y jazz acogedor original, compuesto y producido por Cherry. La banda sonora de una vida tranquila y hermosa — en todas las plataformas.',
     writing_title:'Ensayos y Recetas', writing_desc:'Ensayos profundos en inglés y japonés en Substack. Más una colección de recetas de cocina en solitario — próximamente.',
@@ -475,7 +494,7 @@ const i18n = {
     tag1:'55 ans et épanouie', tag2:'Vie en solo', tag3:'Tokyoïte', tag4:'Productrice musicale', tag5:'Écrivaine',
     about_p1:'Après 18 ans dans une multinationale, j\'ai tout quitté pour construire ma vie selon mes propres règles. Je partage ce voyage — ma philosophie, mes goûts, ma vie tranquille à Tokyo — avec un public mondial sur YouTube, en musique et en écriture.',
     about_p2:'Tout ce que je crée est original : pas de musique de stock, pas de formats empruntés, pas de modèles. Juste mon monde, fait de zéro.',
-    proj_label:'Ce que je fais', proj_title:'Mon univers créatif', proj_desc:'Trois projets interconnectés — tous originaux, tous faits par moi.',
+    proj_label:'Ce que je fais', proj_title:'Mon univers créatif', proj_desc:'Cinq projets interconnectés — tous originaux, tous faits par moi.',
     life_desc:'Des films silencieux de vie quotidienne depuis Tokyo, enrichis de philosophie de vie. Une communauté mondiale d\'adultes authentiques vivant selon leurs propres règles.',
     music_desc:'Bossa nova et jazz cosy originaux, composés et produits par Cherry. La bande sonore d\'une vie tranquille et belle — sur toutes les plateformes.',
     writing_title:'Essais & Recettes', writing_desc:'Des essais approfondis en anglais et japonais sur Substack. Plus une collection de recettes de cuisine en solo — bientôt disponible.',
@@ -493,7 +512,7 @@ const i18n = {
     tag1:'55 & im Aufblühen', tag2:'Solo-Leben', tag3:'Tokio-Lokal', tag4:'Musikproduzentin', tag5:'Autorin',
     about_p1:'Nach 18 Jahren in einem multinationalen Unternehmen habe ich aufgehört, um mein Leben nach meinen eigenen Vorstellungen zu gestalten. Ich teile diese Reise — meine Philosophie, meinen Geschmack, mein ruhiges Tokioter Leben — mit einem weltweiten Publikum über YouTube, Musik und Schreiben.',
     about_p2:'Alles, was ich schaffe, ist original: keine Stockmusik, keine geliehenen Formate, keine Vorlagen. Nur meine Welt, von Grund auf neu gemacht.',
-    proj_label:'Was ich mache', proj_title:'Meine kreative Welt', proj_desc:'Drei miteinander verbundene Projekte — alle original, alle von mir gemacht.',
+    proj_label:'Was ich mache', proj_title:'Meine kreative Welt', proj_desc:'Fünf miteinander verbundene Projekte — alle original, alle von mir gemacht.',
     life_desc:'Wortlose Alltagsfilme aus Tokio, mit Lebensphilosophie durchwoben. Eine globale Gemeinschaft echter Erwachsener, die nach ihren eigenen Regeln leben.',
     music_desc:'Originale gemütliche Bossa Nova und Jazz, komponiert und produziert von Cherry. Der Soundtrack eines ruhigen, schönen Lebens — auf allen Streaming-Plattformen.',
     writing_title:'Essays & Rezepte', writing_desc:'Tiefgehende Essays auf Englisch und Japanisch auf Substack. Dazu eine wachsende Sammlung von Solo-Küche-Rezepten — demnächst.',
@@ -511,7 +530,7 @@ const i18n = {
     tag1:'55 e in fiore', tag2:'Vita in solitario', tag3:'Tokyoita', tag4:'Produttrice musicale', tag5:'Scrittrice',
     about_p1:'Dopo 18 anni in una multinazionale, ho lasciato tutto per costruire la vita secondo i miei termini. Condivido quel viaggio — la mia filosofia, il mio gusto, la mia tranquilla vita a Tokyo — con un pubblico globale attraverso YouTube, musica e scrittura.',
     about_p2:'Tutto ciò che creo è originale: nessuna musica stock, nessun formato in prestito, nessun modello. Solo il mio mondo, fatto da zero.',
-    proj_label:'Cosa faccio', proj_title:'Il mio mondo creativo', proj_desc:'Tre progetti interconnessi — tutti originali, tutti fatti da me.',
+    proj_label:'Cosa faccio', proj_title:'Il mio mondo creativo', proj_desc:'Cinque progetti interconnessi — tutti originali, tutti fatti da me.',
     life_desc:'Film silenziosi di vita quotidiana da Tokyo, con filosofia di vita. Una comunità globale di adulti veri che vivono secondo le proprie regole.',
     music_desc:'Bossa nova e jazz accoglienti originali, composti e prodotti da Cherry. La colonna sonora di una vita tranquilla e bella — su tutte le piattaforme.',
     writing_title:'Saggi e Ricette', writing_desc:'Saggi approfonditi in inglese e giapponese su Substack. Più una raccolta di ricette di cucina in solitario — prossimamente.',
@@ -531,7 +550,7 @@ const i18n = {
     about_p2:'発信するものはすべてオリジナル。ただ私の世界を、ゼロから。',
     proj_label:'活動内容', proj_title:'私のクリエイティブな世界', proj_desc:'5つの活動——すべてオリジナル、すべて私が作っています。',
     life_desc:'東京の日常を、言葉を使わずに映像で届けるチャンネル。人生哲学のテロップを添えて。自分らしく生きる大人たちのグローバルコミュニティ。',
-    music_desc:'チェリーが自ら作曲・制作するオリジナルのコージーなボサノバとジャズ。静かで美しい生活の soundtrack。各種ストリーミングサービスで配信中。',
+    music_desc:'チェリーが自ら作曲・制作するオリジナルのコージーなボサノバとジャズ。静かで美しい生活のサウンドトラック。各種ストリーミングサービスで配信中。',
     writing_title:'エッセイ＆レシピ', writing_desc:'Substackで英語と日本語のエッセイを深掘り配信中。ソロキッチンのレシピ集も近日公開予定。',
     letter_title:"Cherry's Letter Club", letter_desc:'手紙のサブスクリプションサービス。手書きの手紙と季節ごとのサプライズを毎月お届けします。', letter_link:'Patreonで参加する',
     lesson_title:'Japanese Conversation with Cherry', lesson_desc:'すでに独学で日本語を勉強している人、または日本旅行の前に役に立つ簡単な日本語レッスンなど、実践的な日本語を楽しく習得するセッションとクラス。', lesson_link:'Patreonで予約する',
@@ -540,15 +559,19 @@ const i18n = {
     patreon_blurb:'Letter Clubのメンバーシップ・Japanese Conversationなど、Cherryが手掛けるコミュニティは、すべてPatreonで運営しています。', patreon_btn:'Patreonを見る',
     contact_label:'お問い合わせ', contact_title:'一緒に仕事をしましょう', contact_desc:'コラボ・スポンサーシップ・取材のご依頼はこちらから。',
     qr_title:'スマホでスキャンしてフォロー',
-    lang_label:'JP'
+    lang_label:'JA'
   }
 };
 
+
+const studioTranslations = {"es": {"nav_follow": "Seguir", "letter_desc": "Una suscripción de cartas por correo: cartas escritas a mano y sorpresas de temporada, entregadas cada mes.", "letter_link": "Únete en Patreon", "lesson_desc": "Sesiones y clases prácticas de japonés para quienes estudian por su cuenta o preparan un viaje a Japón.", "lesson_link": "Reservar en Patreon", "shop_desc": "Productos originales de Cherry Studio Lab.", "shop_link": "Visitar la tienda", "follow_label": "Sigue en contacto", "follow_title": "Un vistazo a mi mundo", "follow_desc": "Fotos, vídeos y comunidad. Descubre más en cada plataforma.", "follow_more": "Ver más →", "patreon_blurb": "Cartas desde Tokio, conversación en japonés y la comunidad de Cherry, en Patreon.", "patreon_btn": "Visitar Patreon", "letter_title": "Cherry's Letter Club", "lesson_title": "Japanese Conversation with Cherry", "shop_title": "Cherry Studio Lab Shop"}, "fr": {"nav_follow": "Suivre", "letter_desc": "Un abonnement de courrier postal : des lettres manuscrites et des surprises de saison, livrées chaque mois.", "letter_link": "Rejoindre sur Patreon", "lesson_desc": "Des séances et cours pratiques de japonais pour les autodidactes et les personnes qui préparent un voyage au Japon.", "lesson_link": "Réserver sur Patreon", "shop_desc": "Des créations originales de Cherry Studio Lab.", "shop_link": "Voir la boutique", "follow_label": "Gardons le contact", "follow_title": "Un aperçu de mon univers", "follow_desc": "Photos, vidéos et communauté. Découvrez la suite sur chaque plateforme.", "follow_more": "Voir plus →", "patreon_blurb": "Des lettres de Tokyo, des conversations en japonais et la communauté de Cherry sur Patreon.", "patreon_btn": "Visiter Patreon", "letter_title": "Cherry's Letter Club", "lesson_title": "Japanese Conversation with Cherry", "shop_title": "Cherry Studio Lab Shop"}, "de": {"nav_follow": "Folgen", "letter_desc": "Ein Brief-Abo: handgeschriebene Briefe und saisonale Überraschungen, jeden Monat direkt nach Hause.", "letter_link": "Auf Patreon beitreten", "lesson_desc": "Praktische Japanischstunden für alle, die selbstständig lernen oder eine Japanreise vorbereiten.", "lesson_link": "Auf Patreon buchen", "shop_desc": "Originalprodukte von Cherry Studio Lab.", "shop_link": "Zum Shop", "follow_label": "In Verbindung bleiben", "follow_title": "Ein Einblick in meine Welt", "follow_desc": "Fotos, Videos und Gemeinschaft. Mehr gibt es auf den einzelnen Plattformen.", "follow_more": "Mehr ansehen →", "patreon_blurb": "Briefe aus Tokio, japanische Konversation und Cherrys Gemeinschaft auf Patreon.", "patreon_btn": "Patreon besuchen", "letter_title": "Cherry's Letter Club", "lesson_title": "Japanese Conversation with Cherry", "shop_title": "Cherry Studio Lab Shop"}, "it": {"nav_follow": "Seguimi", "letter_desc": "Un abbonamento postale: lettere scritte a mano e sorprese stagionali, consegnate ogni mese.", "letter_link": "Iscriviti su Patreon", "lesson_desc": "Sessioni e lezioni pratiche di giapponese per chi studia da solo o prepara un viaggio in Giappone.", "lesson_link": "Prenota su Patreon", "shop_desc": "Prodotti originali di Cherry Studio Lab.", "shop_link": "Visita il negozio", "follow_label": "Restiamo in contatto", "follow_title": "Uno sguardo al mio mondo", "follow_desc": "Foto, video e comunità. Scopri di più su ogni piattaforma.", "follow_more": "Scopri di più →", "patreon_blurb": "Lettere da Tokyo, conversazione in giapponese e la comunità di Cherry su Patreon.", "patreon_btn": "Visita Patreon", "letter_title": "Cherry's Letter Club", "lesson_title": "Japanese Conversation with Cherry", "shop_title": "Cherry Studio Lab Shop"}, "en": {"follow_title": "A peek into my world", "follow_desc": "Photos, films and community. Follow along on each platform."}, "ja": {"follow_title": "私の世界を、ちょっとのぞき見", "follow_desc": "写真、映像、コミュニティ。続きは各プラットフォームで。"}};
+Object.entries(studioTranslations).forEach(([lang,values])=>Object.assign(i18n[lang],values));
 let currentLang = 'en';
 
 function setLang(lang) {
   currentLang = lang;
-  const t = i18n[lang];
+  if (!i18n[lang]) return;
+  const t = {...i18n.en, ...i18n[lang]};
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key] !== undefined) el.innerHTML = t[key];
@@ -559,23 +582,28 @@ function setLang(lang) {
   });
   document.getElementById('langDropdown').classList.remove('open');
   document.documentElement.lang = lang;
+  document.getElementById('langBtn').setAttribute('aria-expanded','false');
 }
 
 function toggleLang() {
-  document.getElementById('langDropdown').classList.toggle('open');
+  const open=document.getElementById('langDropdown').classList.toggle('open');
+  document.getElementById('langBtn').setAttribute('aria-expanded',String(open));
 }
 
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('langDropdown').classList.remove('open');document.getElementById('langBtn').setAttribute('aria-expanded','false');document.getElementById('mobileMenu').classList.remove('open');document.querySelector('.hamburger').setAttribute('aria-expanded','false');}});
 document.addEventListener('click', e => {
   if (!e.target.closest('.lang-switcher')) {
     document.getElementById('langDropdown').classList.remove('open');
   }
 });
 
-function toggleMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+function toggleMenu(){const open=document.getElementById('mobileMenu').classList.toggle('open');document.querySelector('.hamburger').setAttribute('aria-expanded',String(open))}
 
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
-    const t=document.querySelector(a.getAttribute('href'));
+    const href=a.getAttribute('href');
+    if(href==='#') return;
+    const t=document.getElementById(href.slice(1));
     if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
   });
 });
@@ -587,6 +615,12 @@ document.querySelectorAll('.fade-in').forEach(el=>obs.observe(el));
 window.addEventListener('load',()=>{
   document.querySelectorAll('.hero-inner .fade-in').forEach(el=>el.classList.add('visible'));
 });
+setLang('en');
 </script>
+<script src="feed.js" defer></script>
+<script src="shop.js" defer></script>
 </body>
 </html>
+
+
+
